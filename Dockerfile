@@ -9,10 +9,10 @@ EXPOSE 5055
 USER root
 
 COPY requirements.txt .
-
+COPY server.sh .
 RUN pip install -r requirements.txt
 # RUN python -m spacy download en_core_web_md
 # WORKDIR /app
 # RUN rasa run actions
-# CMD [ "rasa run actions" ]
-ENTRYPOINT ["./server.sh"]
+CMD rasa run actions
+# ENTRYPOINT ["server.sh"]
