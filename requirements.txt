@@ -1,0 +1,13 @@
+requests==2.25.0
+wikipedia==1.4.0
+wiktionaryparser==0.0.97
+sympy==1.6.2
+chemica==1.1.0
+mendeleev==0.7.0
+chemistry-tools[pubchem]
+chemistry-tools[formulae]
+CacheControl==0.12.6
+lockfile==0.12.2
+WebXplore==1.0.3
+google-cloud-storage == 1.42.0
+
