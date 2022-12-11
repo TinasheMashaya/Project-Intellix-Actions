@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 # WORKDIR /app
 # RUN rasa run actions
 # CMD [ "rasa run actions" ]
-ENTRYPOINT ["server.sh"]
+ENTRYPOINT ["./server.sh"]
