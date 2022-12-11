@@ -1,0 +1,21 @@
+{
+    "message": [
+        {
+            "recipient_id": "default",
+            "custom": {
+                "description": "Automate the Boring Stuff with Python: Practical Programming for Total Beginners",
+                "imageUrl": "http:\/\/ecx.images-amazon.com\/images\/I\/51opdSMPVJL.jpg"
+            }
+        }
+    ]
+}
+
+
+{
+    "message": [
+        {
+            "recipient_id": "default",
+            "text": "Hi!"
+        }
+    ]
+}
