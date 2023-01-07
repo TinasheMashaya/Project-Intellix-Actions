@@ -4,6 +4,7 @@ from typing import Any, Text, Dict, List
 from sympy.printing import latex as spl
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import UserUtteranceReverted
 from rasa_sdk.events import SlotSet
 from sympy import cos ,sin ,tan,  trigsimp , Integral , series ,Derivative ,solve_poly_system ,sympify,integrate ,diff ,solve ,expand ,factor ,expand_trig
 from sympy.abc import*
@@ -22,6 +23,7 @@ transformations = standard_transformations + (implicit_multiplication_applicatio
 import datetime as dt
 # import mysql.connector
 import psycopg2
+import json
 
 # mydb = mysql.connector.connect(
 #   host="localhost",
@@ -192,6 +194,39 @@ class EntityPerfomance(Action):
         fulfillmentText = str(tracker.get_slot("perfomance"))
         
         dispatcher.utter_message(text=fulfillmentText)
+        return []
+
+class FallBackAction(Action):
+    
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
+        user_input = str(tracker.latest_message.get('text'))
+        print(user_input)
+        url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
+        }
+        payload = {
+                "enable_google_results": "true",
+                "enable_memory": False,
+                "input_text":user_input
+        }
+        response = requests.post(url, json=payload, headers=headers)
+        print(response)
+        response = json.loads(response.text)
+        print(response)
+        
+        response= response["message"]
+        print(response)
+        dispatcher.utter_message(text=response)
         return []
 
 class wikiSearch(Action):
