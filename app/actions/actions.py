@@ -205,26 +205,31 @@ class FallBackAction(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        response = ""
+        try:
+            user_input = str(tracker.latest_message.get('text'))
+            print(user_input)
+            url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
+            }
+            payload = {
+                    "enable_google_results": "true",
+                    "enable_memory": False,
+                    "input_text":user_input
+            }
+            response = requests.post(url, json=payload, headers=headers)
+            print(response)
+            response = json.loads(response.text)
+            print(response)
+            
+            response= response["message"]
+        except Exception as e:
+            response = str(e)
+            pass
 
-        user_input = str(tracker.latest_message.get('text'))
-        print(user_input)
-        url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
-        headers = {
-            "accept": "application/json",
-            "content-type": "application/json",
-            "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
-        }
-        payload = {
-                "enable_google_results": "true",
-                "enable_memory": False,
-                "input_text":user_input
-        }
-        response = requests.post(url, json=payload, headers=headers)
-        print(response)
-        response = json.loads(response.text)
-        print(response)
-        
-        response= response["message"]
         print(response)
         dispatcher.utter_message(text=response)
         return []
