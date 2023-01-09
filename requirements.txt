@@ -10,7 +10,7 @@ CacheControl==0.12.6
 lockfile==0.12.2
 WebXplore==1.0.3
 google-cloud-storage == 1.42.0
-
+openai==0.26.0
 beautifulsoup4==4.9.3
 wikipedia==1.4.0
 wiktionaryparser==0.0.97

@@ -10,6 +10,7 @@ from sympy import cos ,sin ,tan,  trigsimp , Integral , series ,Derivative ,solv
 from sympy.abc import*
 import os
 import io
+import openai
 from google.cloud import storage
 from sympy.parsing.sympy_parser import (parse_expr,standard_transformations, implicit_multiplication_application)
 from sympy.plotting import plot
@@ -25,6 +26,8 @@ import datetime as dt
 import psycopg2
 import json
 
+openai.api_key = "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"
+model_engine = "text-davinci-003"
 # mydb = mysql.connector.connect(
 #   host="localhost",
 #   user="qubit_user",
@@ -209,21 +212,31 @@ class FallBackAction(Action):
         try:
             user_input = str(tracker.latest_message.get('text'))
             print(user_input)
-            url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
-            headers = {
-                "accept": "application/json",
-                "content-type": "application/json",
-                "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
-            }
-            payload = {
-                    "enable_google_results": "true",
-                    "enable_memory": False,
-                    "input_text":user_input
-            }
-            response = requests.post(url, json=payload, headers=headers)
+            completion = openai.Completion.create(
+                engine=model_engine,
+                prompt=user_input,
+                max_tokens=1024,
+                temperature=0.5,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            # url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
+            # headers = {
+            #     "accept": "application/json",
+            #     "content-type": "application/json",
+            #     "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
+            # }
+            # payload = {
+            #         "enable_google_results": "true",
+            #         "enable_memory": False,
+            #         "input_text":user_input
+            # }
+            # response = requests.post(url, json=payload, headers=headers)
+            response = completion.choices[0].text
             print(response)
-            response = json.loads(response.text)
-            print(response)
+            # response = json.loads(response.text)
+            # print(response)
             
             response= response["message"]
         except Exception as e:
