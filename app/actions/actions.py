@@ -238,7 +238,7 @@ class FallBackAction(Action):
             # response = json.loads(response.text)
             # print(response)
             
-            response= response["message"]
+            # response= response["message"]
         except Exception as e:
             response = str(e)
             pass
