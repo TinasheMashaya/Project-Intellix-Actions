@@ -233,6 +233,7 @@ class FallBackAction(Action):
             #         "input_text":user_input
             # }
             # response = requests.post(url, json=payload, headers=headers)
+            #response
             response = completion.choices[0].text
             print(response)
             # response = json.loads(response.text)
