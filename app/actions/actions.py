@@ -22,11 +22,12 @@ import chemistry_tools.formulae.compound as nc
 from webxplore import WebScraper
 transformations = standard_transformations + (implicit_multiplication_application,)
 import datetime as dt
+#hello
 # import mysql.connector
 import psycopg2
 import json
 
-openai.api_key = "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"
+openai.api_key = "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"
 model_engine = "text-davinci-003"
 # mydb = mysql.connector.connect(
 #   host="localhost",
