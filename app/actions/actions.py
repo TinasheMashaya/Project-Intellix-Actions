@@ -222,19 +222,7 @@ class FallBackAction(Action):
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            # url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium"
-            # headers = {
-            #     "accept": "application/json",
-            #     "content-type": "application/json",
-            #     "X-API-KEY": "e9164a47-9ae9-4ecc-8115-97e359a6fc9a"
-            # }
-            # payload = {
-            #         "enable_google_results": "true",
-            #         "enable_memory": False,
-            #         "input_text":user_input
-            # }
-            # response = requests.post(url, json=payload, headers=headers)
-            #response
+           
             response = completion.choices[0].text
             print(response)
             # response = json.loads(response.text)
