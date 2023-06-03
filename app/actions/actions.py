@@ -27,7 +27,7 @@ import datetime as dt
 import psycopg2
 import json
 
-openai.api_key = "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"
+openai.api_key = "API-KEY-HERE"
 model_engine = "text-davinci-003"
 # mydb = mysql.connector.connect(
 #   host="localhost",
